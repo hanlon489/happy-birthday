@@ -6,86 +6,57 @@
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background: linear-gradient(to top, #a0e9fd, #ffffff);
       font-family: 'Segoe UI', sans-serif;
-      overflow: hidden;
+      background: linear-gradient(to top, #a0e9fd, #ffffff);
+      overflow-x: hidden;
       text-align: center;
       color: #333;
     }
 
     h1 {
-      margin-top: 15vh;
+      margin-top: 30px;
       font-size: 3em;
       animation: wiggle 1s ease-in-out infinite alternate;
     }
 
-    p {
-      font-size: 1.3em;
-      margin-top: 20px;
-      animation: fadeUp 1.5s ease forwards;
-      opacity: 0;
-      animation-delay: 1s;
+    .tabs {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
-    button {
-      margin-top: 30px;
-      padding: 15px 30px;
+    .tab-btn {
+      padding: 15px 25px;
       font-size: 1.2em;
       border: none;
       border-radius: 50px;
       cursor: pointer;
       background: #ffd633;
-      color: #333;
       font-weight: bold;
-      animation: fadeUp 1.5s ease forwards;
-      animation-delay: 1.5s;
-      opacity: 0;
+      transition: 0.3s;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    button:hover {
+    .tab-btn:hover {
       transform: scale(1.1);
-      transition: 0.3s;
     }
 
-    /* Ducks */
-    .duck {
-      position: absolute;
-      bottom: -80px;
-      width: 60px;
-      height: 60px;
-      background: yellow;
-      border-radius: 50% 50% 50% 50%;
-      animation: float 6s linear infinite;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .content {
+      margin-top: 40px;
+      min-height: 300px;
+      position: relative;
     }
 
-    .duck::after {
-      content: "🦆";
-      font-size: 2em;
+    /* Fade animations */
+    .hidden { display: none; }
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
     }
 
-    /* Ducklings (confetti) */
-    .duckling {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      font-size: 1.2em;
-      top: 0;
-      animation: fall 4s linear infinite;
-    }
-
-    @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(-120vh); }
-    }
-
-    @keyframes fadeUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
     }
 
     @keyframes wiggle {
@@ -94,62 +65,121 @@
       100% { transform: rotate(-5deg); }
     }
 
+    /* Typing text */
+    .typing {
+      border-right: 3px solid #333;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.3em;
+      width: 0;
+      animation: typing 4s steps(40) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Surprise 3: ducks */
+    .duck {
+      position: absolute;
+      bottom: -80px;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      animation: float 6s linear infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-120vh); }
+    }
+
+    .duckling {
+      position: absolute;
+      font-size: 1.2em;
+      top: 0;
+      animation: fall 4s linear infinite;
+    }
+
     @keyframes fall {
       0% { transform: translateY(0) rotate(0deg); }
       100% { transform: translateY(100vh) rotate(360deg); }
-    }
-
-    /* Water waves */
-    .wave {
-      position: absolute;
-      width: 200%;
-      height: 200px;
-      background: rgba(64,164,223,0.3);
-      border-radius: 40%;
-      bottom: 0;
-      left: -50%;
-      animation: waveMove 6s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes waveMove {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(50%); }
     }
   </style>
 </head>
 <body>
 
   <h1>🦆 Happy Birthday Ibrahim! 🦆</h1>
-  <p>Wishing you a quacky day full of joy, laughs, and cake!</p>
-  <button onclick="surprise()">Click for a Surprise 🎁</button>
 
-  <div class="wave"></div>
-  <div class="wave" style="animation-delay: 3s; opacity:0.5;"></div>
+  <div class="tabs">
+    <button class="tab-btn" onclick="showTab(1)">📸 Memory</button>
+    <button class="tab-btn" onclick="showTab(2)">📝 Message</button>
+    <button class="tab-btn" onclick="showTab(3)">🎁 Surprise</button>
+  </div>
+
+  <div class="content">
+    <!-- Surprise 1: Picture -->
+    <div id="tab1" class="hidden fade-in">
+      <img src="https://images.unsplash.com/photo-1606788075760-1a49a5c5df0c?auto=format&fit=crop&w=400&q=80" alt="Memory" style="max-width:80%; border-radius:20px;">
+      <p style="margin-top:15px;">A special memory together! 💛</p>
+    </div>
+
+    <!-- Surprise 2: Animated Text -->
+    <div id="tab2" class="hidden fade-in">
+      <p class="typing">Ibrahim, wishing you the happiest birthday ever! May your days be full of laughter, adventures, and lots of ducky fun! 🦆💛</p>
+    </div>
+
+    <!-- Surprise 3: Duck animation -->
+    <div id="tab3" class="hidden fade-in" style="position:relative; height:300px;">
+      <p>Get ready for some quacky fun! 🦆</p>
+      <p>Watch the ducks and ducklings dance! 🎉</p>
+    </div>
+  </div>
 
   <script>
-    function surprise() {
-      alert("🎉 Happy Birthday Ibrahim! May your year be full of quacks and smiles! 🦆");
+    function showTab(num) {
+      // Hide all
+      document.getElementById('tab1').classList.add('hidden');
+      document.getElementById('tab2').classList.add('hidden');
+      document.getElementById('tab3').classList.add('hidden');
+
+      // Show selected
+      let tab = document.getElementById('tab'+num);
+      tab.classList.remove('hidden');
+
+      // Surprise 3 special animation
+      if(num === 3){
+        // Clear previous ducks
+        document.querySelectorAll('.duck, .duckling').forEach(el => el.remove());
+        // Ducks
+        for (let i = 0; i < 15; i++) {
+          let duck = document.createElement('div');
+          duck.className = 'duck';
+          duck.style.left = Math.random()*100+'vw';
+          duck.textContent = '🦆';
+          tab.appendChild(duck);
+        }
+        // Ducklings
+        for(let i=0;i<40;i++){
+          let duckling = document.createElement('div');
+          duckling.className='duckling';
+          duckling.style.left=Math.random()*100+'vw';
+          duckling.textContent='🐥';
+          tab.appendChild(duckling);
+        }
+      }
     }
 
-    // Create floating ducks
-    for (let i = 0; i < 20; i++) {
-      let duck = document.createElement("div");
-      duck.className = "duck";
-      duck.style.left = Math.random() * 100 + "vw";
-      duck.style.animationDuration = (4 + Math.random() * 4) + "s";
-      document.body.appendChild(duck);
-    }
-
-    // Create falling ducklings (confetti)
-    for (let i = 0; i < 50; i++) {
-      let duckling = document.createElement("div");
-      duckling.className = "duckling";
-      duckling.style.left = Math.random() * 100 + "vw";
-      duckling.style.animationDuration = (3 + Math.random()*4) + "s";
-      duckling.textContent = "🐥";
-      document.body.appendChild(duckling);
-    }
+    // Show first tab by default
+    showTab(1);
   </script>
 
 </body>
