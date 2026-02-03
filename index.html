@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>بييييبييي كل عام وأنت بخير برهوم 🦆🎉</title>
+<title>بيييبييي كل عام وأنت بخير برهومي 🦆🎉</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Segoe+UI:wght@400;700&display=swap');
 
@@ -86,23 +86,22 @@ h1 {
 .gallery img { border-radius:20px; max-height:250px; box-shadow:0 15px 40px rgba(0,0,0,.3); transition:transform 0.5s, filter 0.3s; cursor:pointer; }
 .gallery img:hover { transform: scale(1.12) rotate(-2deg); filter:brightness(1.3); }
 
-  .typing {
+.typing {
   border-right:3px solid #333;
-  white-space:nowrap;
+  white-space:normal;           /* wrap text */
   overflow:hidden;
-  font-size:2.5em;           /* bigger font */
+  font-size:2.5em;
   width:0;
-  animation: typing 6s steps(80) forwards, blink 0.75s step-end infinite;
+  animation: typing 8s steps(120) forwards, blink 0.75s step-end infinite;
   margin:30px auto;
   max-width:90%;
-  font-family: 'Pacifico', cursive; /* fancy font */
-  color: #ff6f61;             /* solid color */
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.3); /* subtle shadow */
+  font-family: 'Pacifico', cursive;
+  color: #ff6f61;
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
 }
 @keyframes typing{ from{width:0;} to{width:100%;} }
 @keyframes blink{ 50%{border-color:transparent;} }
 
-/* Shapes for chaos */
 .chaos-element{
   position:absolute;
   pointer-events:none;
@@ -113,7 +112,7 @@ h1 {
 </head>
 <body>
 
-<h1>🦆 Ultimate Birthday Ibrahim! 🎉✨</h1>
+<h1>بيييبييي كل عام وأنت بخير برهومي 🦆🎉✨</h1>
 <img src="20251225_115520.jpg" class="main-pic">
 
 <audio id="bgMusic">
@@ -137,7 +136,7 @@ h1 {
   </div>
 
   <div id="tab2" class="hidden fade-in">
-    <p class="typing">Ibrahim, may your birthday explode with laughter, love, and endless ducky chaos! 🦆💛✨🎊</p>
+    <p class="typing">إبراهيم مرتي الثانية كل عام وأنت بالف خير عقبال ال 97 سنة لأنه في 3 سنين من حياتك راحت وأنت تتفرج على صور بطابيط</p>
   </div>
 
   <div id="tab3" class="hidden fade-in" style="position:relative; height:500px;">
@@ -195,21 +194,18 @@ function startParty(){
         el.style.top=(top+vy)+'px';
         el.style.left=(left+vx)+'px';
         el.style.transform = `rotate(${spin*(100-life)/10}deg)`;
-        vy+=0.5; // gravity
+        vy+=0.5;
         el.style.opacity=life/100;
         if(life<=0){ el.remove(); clearInterval(anim);}
       },30);
     }
 
-    // Screen shake
     document.body.style.transform=`translate(${random(-15,15)}px,${random(-15,15)}px)`;
     setTimeout(()=>document.body.style.transform='translate(0,0)',50);
-    // Background flash
     document.body.style.background=`linear-gradient(to top, ${randomColor()}, ${randomColor()})`;
   },100);
 }
 
-// Mouse-follow sparkles
 document.addEventListener('mousemove', e=>{
   let s=document.createElement('div'); s.className='chaos-element';
   s.style.left=e.pageX+'px'; s.style.top=e.pageY+'px';
