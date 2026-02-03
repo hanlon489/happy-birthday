@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>بيييبييي كل عام وأنت بخير برهومي 🦆🎉</title>
@@ -88,11 +88,11 @@ h1 {
 
 .typing {
   border-right:3px solid #333;
-  white-space:nowrap;
+  white-space:normal;           /* wrap text */
   overflow:hidden;
   font-size:2.5em;
   width:0;
-  animation: typing 6s steps(80) forwards, blink 0.75s step-end infinite;
+  animation: typing 8s steps(120) forwards, blink 0.75s step-end infinite;
   margin:30px auto;
   max-width:90%;
   font-family: 'Pacifico', cursive;
@@ -112,7 +112,7 @@ h1 {
 </head>
 <body>
 
-<h1>بيييبييي كل عام وأنت بخير برهومي 🦆🎉</h1>
+<h1>بيييبييي كل عام وأنت بخير برهومي 🦆🎉✨</h1>
 <img src="20251225_115520.jpg" class="main-pic">
 
 <audio id="bgMusic">
@@ -171,7 +171,7 @@ function startParty(){
   const tab = document.getElementById('tab3');
 
   partyInterval = setInterval(()=>{
-    for(let i=0;i<4;i++){ // fewer elements
+    for(let i=0;i<8;i++){
       let el = document.createElement('div'); 
       el.className='chaos-element';
       el.style.left=random(0,window.innerWidth)+'px';
@@ -180,9 +180,9 @@ function startParty(){
 
       const types=['🦆','🐥','🎈','✨','💥','🎆'];
       el.textContent = types[Math.floor(Math.random()*types.length)];
-      el.style.fontSize=random(25,50)+'px';
+      el.style.fontSize=random(20,50)+'px';
 
-      let vx=random(-12,12), vy=random(-12,12), spin=random(-25,25);
+      let vx=random(-8,8), vy=random(-12,4), spin=random(-10,10);
       let life=100;
 
       tab.appendChild(el);
@@ -191,31 +191,21 @@ function startParty(){
         life--;
         let top=parseFloat(el.style.top);
         let left=parseFloat(el.style.left);
-
         el.style.top=(top+vy)+'px';
         el.style.left=(left+vx)+'px';
-        el.style.transform=`rotate(${spin*(100-life)/10}deg)`;
-
-        vy += random(-0.3,0.3); 
-        vx += random(-0.3,0.3);
-
-        el.style.opacity = life/100;
-
-        if(life<=0 || top<-200 || top>window.innerHeight+200 || left<-200 || left>window.innerWidth+200){
-          el.remove(); 
-          clearInterval(anim);
-        }
+        el.style.transform = `rotate(${spin*(100-life)/10}deg)`;
+        vy+=0.5;
+        el.style.opacity=life/100;
+        if(life<=0){ el.remove(); clearInterval(anim);}
       },30);
     }
 
     document.body.style.transform=`translate(${random(-15,15)}px,${random(-15,15)}px)`;
     setTimeout(()=>document.body.style.transform='translate(0,0)',50);
     document.body.style.background=`linear-gradient(to top, ${randomColor()}, ${randomColor()})`;
-
   },100);
 }
 
-// Mouse-follow sparkles
 document.addEventListener('mousemove', e=>{
   let s=document.createElement('div'); s.className='chaos-element';
   s.style.left=e.pageX+'px'; s.style.top=e.pageY+'px';
