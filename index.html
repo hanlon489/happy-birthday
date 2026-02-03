@@ -7,7 +7,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Segoe+UI:wght@400;700&display=swap');
 
 * { box-sizing:border-box; margin:0; padding:0; }
-
 body {
   font-family: 'Segoe UI', sans-serif;
   overflow-x: hidden;
@@ -16,6 +15,7 @@ body {
   color: #333;
   position: relative;
   min-height:100vh;
+  transition: background 0.2s;
 }
 
 h1 {
@@ -55,10 +55,7 @@ h1 {
   box-shadow:0 5px 20px rgba(0,0,0,0.3);
   transition:0.3s;
 }
-.tab-btn:hover {
-  transform: scale(1.15) rotate(-2deg);
-  box-shadow:0 10px 30px rgba(0,0,0,0.4);
-}
+.tab-btn:hover { transform: scale(1.15) rotate(-2deg); box-shadow:0 10px 30px rgba(0,0,0,0.4); }
 
 /* PARTY button */
 .party-btn {
@@ -81,12 +78,7 @@ h1 {
   100% { transform: scale(1) rotate(0deg); box-shadow:0 0 10px #ff0;}
 }
 
-.content {
-  margin-top:40px;
-  min-height:500px;
-  position:relative;
-  overflow:hidden;
-}
+.content { margin-top:40px; min-height:500px; position:relative; overflow:hidden; }
 .hidden { display:none; }
 .fade-in { animation:fadeIn 1s ease forwards; }
 @keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
@@ -108,12 +100,11 @@ h1 {
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 @keyframes typing{ from{width:0;} to{width:100%;} }
 @keyframes blink{ 50%{border-color:transparent;} }
 
-/* Ducks, ducklings, balloons, confetti, sparkles */
-.duck,.duckling,.balloon,.sparkle,.confetti{position:absolute;font-size:2em;animation-timing-function:linear; z-index:10;}
+/* Ducks, ducklings, balloons, confetti, sparkles, explosions */
+.duck,.duckling,.balloon,.sparkle,.confetti,.explosion{position:absolute;font-size:2em;animation-timing-function:linear; z-index:10;}
 .duck { bottom:-60px; animation: float 8s linear infinite;}
 @keyframes float{0%{transform:translateY(0);}100%{transform:translateY(-120vh);}}
 .duckling{top:-60px;font-size:1.5em; animation: fall 6s linear infinite;}
@@ -122,18 +113,19 @@ h1 {
 @keyframes rise{0%{transform:translateY(100vh);}100%{transform:translateY(-20vh);}}
 .confetti{width:10px;height:10px;opacity:0.8; z-index:999; animation: confetti-fall 3s linear forwards;}
 @keyframes confetti-fall{0%{transform:translateY(0) rotate(0deg); opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;}}
+.explosion {font-size:2em; animation: explode 0.7s ease-out forwards;}
+@keyframes explode {0%{transform:scale(0); opacity:1;}50%{transform:scale(2); opacity:0.8;}100%{transform:scale(3) rotate(360deg); opacity:0;}}
 </style>
 </head>
 <body>
 
 <h1>🦆 Ultimate Birthday Ibrahim! 🎉✨</h1>
 
-<img src="77barhom-20260203-0002.jpg" class="main-pic">
+<img src="20251225_115520.jpg" class="main-pic">
 
-<!-- Background music, starts only on party button click -->
-<audio id="bgMusic" loop>
+<!-- Music (plays once when party starts) -->
+<audio id="bgMusic">
   <source src="quack.mp4.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 
 <div class="tabs">
@@ -146,9 +138,9 @@ h1 {
   <!-- Tab1: Gallery -->
   <div id="tab1" class="hidden fade-in">
     <div class="gallery">
-      <img src="77barhom-20260203-0002.jpg" alt="Memory 1">
-      <img src="77barhom-20260203-0003.jpg" alt="Memory 2">
-      <img src="77barhom-20260203-0002.jpg" alt="Memory 3">
+      <img src="20251225_115520.jpg" alt="Memory 1">
+      <img src="77barhom-20260203-0002.jpg" alt="Memory 2">
+      <img src="77barhom-20260203-0003.jpg" alt="Memory 3">
     </div>
     <p style="margin-top:15px;">Swipe to see all memories! 💛</p>
   </div>
@@ -160,7 +152,7 @@ h1 {
 
   <!-- Tab3: Mega Party -->
   <div id="tab3" class="hidden fade-in" style="position:relative; height:500px;">
-    <p style="margin-top:10px; font-size:1.3em;">Get ready for a full ducky, sparkly, balloon-filled celebration! 🦆🎈✨</p>
+    <p style="margin-top:10px; font-size:1.3em;">Get ready for absolute chaotic celebration! 🦆🎈✨💥</p>
   </div>
 </div>
 
@@ -183,7 +175,7 @@ function randomColor(){return `hsl(${Math.random()*360},100%,50%)`; }
 function startParty(){
   if(partyInterval) clearInterval(partyInterval);
 
-  // Start the music
+  // Play music once
   const music = document.getElementById('bgMusic');
   music.play();
 
@@ -191,25 +183,43 @@ function startParty(){
   showTab(3);
   const tab = document.getElementById('tab3');
 
+  // Absolute chaos
   partyInterval = setInterval(()=>{
     // Ducks
-    let d=document.createElement('div'); d.className='duck';
-    d.style.left=Math.random()*100+'vw'; d.textContent='🦆'; tab.appendChild(d);
+    for(let i=0;i<5;i++){
+      let d=document.createElement('div'); d.className='duck';
+      d.style.left=Math.random()*100+'vw'; d.textContent='🦆'; tab.appendChild(d);
+    }
     // Ducklings
-    let dl=document.createElement('div'); dl.className='duckling';
-    dl.style.left=Math.random()*100+'vw'; dl.textContent='🐥'; tab.appendChild(dl);
+    for(let i=0;i<5;i++){
+      let dl=document.createElement('div'); dl.className='duckling';
+      dl.style.left=Math.random()*100+'vw'; dl.textContent='🐥'; tab.appendChild(dl);
+    }
     // Balloons
-    let b=document.createElement('div'); b.className='balloon';
-    b.style.left=Math.random()*100+'vw'; b.textContent='🎈'; tab.appendChild(b);
+    for(let i=0;i<5;i++){
+      let b=document.createElement('div'); b.className='balloon';
+      b.style.left=Math.random()*100+'vw'; b.textContent='🎈'; tab.appendChild(b);
+    }
     // Confetti
-    let c=document.createElement('div'); c.className='confetti';
-    c.style.left=Math.random()*100+'vw'; c.style.backgroundColor=randomColor(); tab.appendChild(c);
+    for(let i=0;i<10;i++){
+      let c=document.createElement('div'); c.className='confetti';
+      c.style.left=Math.random()*100+'vw'; c.style.backgroundColor=randomColor(); tab.appendChild(c);
+    }
     // Sparkles
-    let s=document.createElement('div'); s.className='sparkle';
-    s.style.left=Math.random()*100+'vw'; s.style.fontSize=(10+Math.random()*25)+'px';
-    s.textContent='✨'; tab.appendChild(s);
+    for(let i=0;i<10;i++){
+      let s=document.createElement('div'); s.className='sparkle';
+      s.style.left=Math.random()*100+'vw'; s.style.fontSize=(10+Math.random()*25)+'px';
+      s.textContent='✨'; tab.appendChild(s);
+    }
+    // Explosions
+    for(let i=0;i<5;i++){
+      let e=document.createElement('div'); e.className='explosion';
+      e.style.left=Math.random()*100+'vw'; e.style.top=Math.random()*80+'vh';
+      e.textContent='💥'; tab.appendChild(e);
+      setTimeout(()=>e.remove(),700);
+    }
     // Fireworks
-    if(Math.random()<0.3){
+    if(Math.random()<0.5){
       let f=document.createElement('div'); f.className='sparkle';
       f.style.left=Math.random()*100+'vw'; f.style.top=Math.random()*50+'vh';
       f.style.fontSize=(20+Math.random()*30)+'px'; f.textContent='🎆';
@@ -219,10 +229,12 @@ function startParty(){
     document.querySelectorAll('.duck,.duckling,.balloon,.confetti,.sparkle').forEach(el=>{
       if(el.offsetTop<-200||el.offsetTop>window.innerHeight+200) el.remove();
     });
-    // Shake tab
-    tab.style.transform=`translate(${Math.random()*10-5}px,${Math.random()*10-5}px)`;
-    setTimeout(()=>tab.style.transform='translate(0,0)',50);
-  },200);
+    // Screen shake
+    document.body.style.transform=`translate(${Math.random()*40-20}px,${Math.random()*40-20}px)`;
+    setTimeout(()=>document.body.style.transform='translate(0,0)',50);
+    // Random background flash
+    document.body.style.background=`linear-gradient(to top, ${randomColor()}, ${randomColor()})`;
+  },80);
 }
 
 // Show first tab by default
